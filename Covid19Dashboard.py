@@ -1,12 +1,12 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import plotly_express as px
+import plotly.express as px
 
 @st.cache_data()
 
 def load_data():
-    url="https://raw.githubusercontent.com/datasets/covid-19/main/data/countriesaggregated.csv"
+    url="https://raw.githubusercontent.com/datasets/covid-19/main/data/countries-aggregated.csv"
     
     df=pd.read_csv(url)
     df['Date']=pd.to_datetime(df['Date'])
@@ -21,4 +21,5 @@ filtered_df=df[df['Country']==country]
 fig=px.line(filtered_df, x='Date', y=metric, title=f"{metric}Cases in {country}")
 st.plotly_chart(fig, use_container_width=True)
 if st.checkbox("Show Raw Data"):
+
     st.write(filtered_df)
